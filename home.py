@@ -3,6 +3,7 @@ import pandas as pd
 import io
 import os
 import requests
+from datetime import datetime, timezone
 
 def do_stuff_on_page_load():
     st.set_page_config(layout="wide")
@@ -41,4 +42,5 @@ if st.button('Show'):
 
     df_aee2.to_csv('data/df_aee.csv',index=False)
 
-    st.write(os.stat('data/df_aee.csv').st_mtime)
+    st.write("Last updated in UTC:")
+    st.write(datetime.fromtimestamp(os.stat('data/df_aee.csv').st_mtime, tz=timezone.utc))
